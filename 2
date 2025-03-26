@@ -1,0 +1,13 @@
+% Предикат для подсчёта чисел, оканчивающихся на заданную цифру
+count_last_digit([], _, 0).  % Базовый случай: пустой список
+
+count_last_digit([H|T], Digit, Count) :-
+    LastDigit is H mod 10,     % Получаем последнюю цифру числа H
+    (LastDigit =:= Digit ->    % Если последняя цифра совпадает с заданной
+        count_last_digit(T, Digit, SubCount),
+        Count is SubCount + 1
+    ;                         % Иначе
+        count_last_digit(T, Digit, Count)
+    ).
+% ?- count_last_digit([1, 2, 3, 4], 5, Count).
+% Count = 0  (нет чисел, оканчивающихся на 5)
